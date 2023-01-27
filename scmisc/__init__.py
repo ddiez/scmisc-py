@@ -5,3 +5,4 @@ Miscellaneous tools for the analysis of single cell genomics data in python. A n
 
 """
 
+from ._plot import *
