@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scmisc"
+version = "0.0.1"
+authors = [
+  { name="Diego Diez", email="diego10ruiz@gmail.com" },
+]
+description = "Miscelaneous tools for the analysis of single cell genomics data."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Intended Audience :: Science/Research",
+    "Development Status :: 4 - Beta"
+]
+
+dependencies = [
+  "numpy",
+  "anndata",
+  "scanpy",
+  "pandas"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ddiez/scmisc-py"
+"Bug Tracker" = "https://github.com/ddiez/scmisc-py/issues"
+
+[tool.setuptools]
+packages = ["scmisc"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests"
+]
