@@ -57,3 +57,14 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
     plt.scatter(coord[:, 0], coord[:, 1], s=size, c=color, marker="o")
 
   plt.show()
+
+def plot_pca_var(x):
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  var = x.uns["pca"]["variance"]
+
+  var = var / np.sum(var)
+  var = np.cumsum(var)
+
+  plt.scatter(y=var)
