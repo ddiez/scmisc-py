@@ -3,7 +3,7 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
   import numpy as np
   
   if basis is None:
-    basis = adata.obsm_keys()[0]
+    basis = x.obsm_keys()[0]
   else:
     if basis not in x.obsm_keys():
       basis = f"X_{basis}"
