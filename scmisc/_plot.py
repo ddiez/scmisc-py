@@ -64,7 +64,8 @@ def plot_pca_var(x):
 
   var = x.uns["pca"]["variance"]
 
-  var = var / np.sum(var)
+  var = 100 * var / np.sum(var)
   var = np.cumsum(var)
 
-  plt.scatter(y=var)
+  plt.scatter(x=range(var.shape[0]), y=var, c="black", s=1)
+  plt.axhline(y=80, c="red", linewidth=1)
