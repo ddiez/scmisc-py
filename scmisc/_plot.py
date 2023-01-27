@@ -58,7 +58,7 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
 
   plt.show()
 
-def plot_pca_var(x):
+def plot_pca_variance_cumper(x):
   import numpy as np
   import matplotlib.pyplot as plt
 
