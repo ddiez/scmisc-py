@@ -1,4 +1,4 @@
-def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_color="red", ncols=None, figsize=None):
+def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):
   import matplotlib.pyplot as plt
   import numpy as np
   
@@ -20,12 +20,18 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
     groups = expand.unique()
     ngroups = groups.shape[0]
     
-    if ncols is None:
+    if ncols is None and nrows is None:
       ncols = np.int32(np.ceil(np.sqrt(ngroups)))
+      nrows = int(np.ceil(ngroups/ncols))
+
+    if ncols is None and nrows is not None:
+      ncols = int(np.ceil(ngroups/nrows))
+
+    if nrows is None and ncols is not None:
+      nrows = int(np.ceil(ngroups/ncols))
     
-    nrows = int(np.ceil(ngroups/ncols))
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
-    ax.reshape(nrows, ncols)
+    ax = ax.reshape(nrows, ncols)
     for i in range(nrows):
       for j in range(ncols):
         ax[i, j].grid(False)
