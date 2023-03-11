@@ -25,6 +25,7 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
     
     nrows = int(np.ceil(ngroups/ncols))
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
+    ax.reshape(nrows, ncols)
     for i in range(nrows):
       for j in range(ncols):
         ax[i, j].grid(False)
