@@ -39,7 +39,7 @@ def generate_doublet_rate_model_10x(data=None):
   fit = LinearRegression().fit(X, y)
   return fit
 
-def plot_doublet_ratio(x=None):
+def plot_doublet_rate(x=None):
   from ._data import load_10x_doublet_rate
   data = load_10x_doublet_rate()
   fit = generate_doublet_rate_model_10x(data)
