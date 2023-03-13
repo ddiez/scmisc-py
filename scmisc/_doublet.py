@@ -20,7 +20,9 @@ def predict_doublet_rate(x, batch=None, fit=None):
     for b in x[batch].values.categories:
       N = x[x[batch] == b].shape[0]
       n = np.array(N).reshape(-1, 1)
-      tmp = {"batch": b, "count": N, "doublet_rate": fit.predict(n)[0, 0]}
+      rate = fit.predict(n)[0, 0]
+      n_doublet = N * rate / 100
+      tmp = {"batch": b, "count": N, "doublet_rate": rate, "n_doublet": n_doublet}
       res.append(tmp)
   
   return pd.DataFrame(res)
