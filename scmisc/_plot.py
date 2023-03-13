@@ -45,7 +45,7 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
       index = expand[expand == group].index
       cells = x.obs_names.isin(index)
       
-      im = ax[crow, ccol].scatter(coord[:,0], coord[:,1], s=size, c=color, marker="o")
+      ax[crow, ccol].scatter(coord[:,0], coord[:,1], s=size, c=color, marker="o")
       ax[crow, ccol].scatter(coord[cells, 0], coord[cells, 1], s=size, c=highlight_color, marker="o")
       ax[crow, ccol].set_title(str(groups[k]))
       ax[crow, ccol].set_axis_on()
