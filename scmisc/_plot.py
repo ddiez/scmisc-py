@@ -31,35 +31,44 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
       nrows = int(np.ceil(ngroups/ncols))
     
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
-    ax = ax.reshape(nrows, ncols)
-    for i in range(nrows):
-      for j in range(ncols):
-        ax[i, j].grid(False)
-        ax[i, j].set_axis_off()
+    if nrows == 1 and ncols == 1:
+      ax.scatter(coord[:, 0], coord[:, 1], s=size, c=highlight_color, marker="o")
+      ax.set_title(str(groups[0]))
+      ax.set_axis_on()
+      ax.set_xticks([])
+      ax.set_yticks([])
+      ax.set_xlabel(keys[0])
+      ax.set_ylabel(keys[1])
+    else:
+      ax = ax.reshape(nrows, ncols)
+      for i in range(nrows):
+        for j in range(ncols):
+          ax[i, j].grid(False)
+          ax[i, j].set_axis_off()
 
-    crow=0
-    ccol=0
-    
-    for k in range(ngroups):
-      group = groups[k]
-      index = expand[expand == group].index
-      cells = x.obs_names.isin(index)
+      crow=0
+      ccol=0
       
-      ax[crow, ccol].scatter(coord[:,0], coord[:,1], s=size, c=color, marker="o")
-      ax[crow, ccol].scatter(coord[cells, 0], coord[cells, 1], s=size, c=highlight_color, marker="o")
-      ax[crow, ccol].set_title(str(groups[k]))
-      ax[crow, ccol].set_axis_on()
-      ax[crow, ccol].set_xticks([])
-      ax[crow, ccol].set_yticks([])
-      ax[crow, ccol].set_xlabel(keys[0])
-      ax[crow, ccol].set_ylabel(keys[1])
-      
-      ccol = ccol + 1
-      if (ccol > ncols - 1):
-        crow+=1
-        ccol=0
+      for k in range(ngroups):
+        group = groups[k]
+        index = expand[expand == group].index
+        cells = x.obs_names.isin(index)
+        
+        ax[crow, ccol].scatter(coord[:,0], coord[:,1], s=size, c=color, marker="o")
+        ax[crow, ccol].scatter(coord[cells, 0], coord[cells, 1], s=size, c=highlight_color, marker="o")
+        ax[crow, ccol].set_title(str(groups[k]))
+        ax[crow, ccol].set_axis_on()
+        ax[crow, ccol].set_xticks([])
+        ax[crow, ccol].set_yticks([])
+        ax[crow, ccol].set_xlabel(keys[0])
+        ax[crow, ccol].set_ylabel(keys[1])
+        
+        ccol = ccol + 1
+        if (ccol > ncols - 1):
+          crow+=1
+          ccol=0
 
-    fig.tight_layout()
+      fig.tight_layout()
   else:
     plt.scatter(coord[:, 0], coord[:, 1], s=size, c=color, marker="o")
 
