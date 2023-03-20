@@ -85,3 +85,5 @@ def plot_pca_variance_cumper(x):
 
   plt.scatter(x=range(var.shape[0]), y=var, c="black", s=1)
   plt.axhline(y=80, c="red", linewidth=1)
+  plt.xlabel("Component")
+  plt.ylabel("Cumulative percentage variance")
