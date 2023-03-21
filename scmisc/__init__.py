@@ -9,3 +9,4 @@ from ._version import __version__
 from ._plot import *
 from ._data import *
 from ._doublet import *
+from ._utils import *
