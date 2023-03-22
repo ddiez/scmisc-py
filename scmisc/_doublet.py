@@ -21,7 +21,7 @@ def predict_doublet_rate(x, batch=None, fit=None):
       N = x[x[batch] == b].shape[0]
       n = np.array(N).reshape(-1, 1)
       rate = fit.predict(n)[0, 0]
-      n_doublet = N * rate / 100
+      n_doublet = np.ceil(N * rate / 100)
       tmp = {"batch": b, "count": N, "doublet_rate": rate, "n_doublet": n_doublet}
       res.append(tmp)
   
