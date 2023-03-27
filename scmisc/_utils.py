@@ -8,6 +8,7 @@ def fetch_data(x, obsm=None, obs=None, features=None, use_raw=None):
     coord = pd.DataFrame({})
     if obsm is not None:
         coord = pd.DataFrame(x.obsm[obsm], index=x.obs.index)
+        coord = coord.rename(columns={0: "dim1", 1: "dim2"})
     
     meta = pd.DataFrame({})
     if obs is True:
