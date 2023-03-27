@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_xy(x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, *args, **kwargs):
+def plot_xy(x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, axis=True, grid=True, *args, **kwargs):
   if expand is None:
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, squeeze=True)
     ax.scatter(x, y, s=size, c=color, *args, **kwargs)
@@ -38,11 +38,14 @@ def plot_xy(x, y, expand=None, size=.1, color="lightgrey", highlight_color="red"
       ax[crow, ccol].scatter(x, y, s=size, c=color, marker="o")
       ax[crow, ccol].scatter(x[cells], y[cells], s=size, c=highlight_color, marker="o")
       ax[crow, ccol].set_title(str(groups[k]))
-      ax[crow, ccol].set_axis_on()
-      ax[crow, ccol].set_xticks([])
-      ax[crow, ccol].set_yticks([])
+      if axis:
+        ax[crow, ccol].set_axis_on()
+      #ax[crow, ccol].set_xticks([])
+      #ax[crow, ccol].set_yticks([])
       #ax[crow, ccol].set_xlabel(keys[0])
       #ax[crow, ccol].set_ylabel(keys[1])
+      if grid:
+        ax[crow, ccol].grid(True)
       
       ccol = ccol + 1
       if (ccol > ncols - 1):
