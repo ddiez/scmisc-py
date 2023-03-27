@@ -3,7 +3,8 @@ import numpy as np
 
 def plot_xy(x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, *args, **kwargs):
   if expand is None:
-    plt.scatter(x, y, *args, **kwargs)
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, squeeze=True)
+    ax.scatter(x, y, s=size, c=color, *args, **kwargs)
   else:
     groups = expand.unique()
     ngroups = groups.shape[0]
