@@ -1,11 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_xy(x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, axis=True, grid=True, *args, **kwargs):
+def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
+  x = data[x]
+  y = data[y]
+
   if expand is None:
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, squeeze=True)
     ax.scatter(x, y, s=size, c=color, *args, **kwargs)
   else:
+    expand = data[expand]
     groups = expand.unique()
     ngroups = groups.shape[0]
 
@@ -53,6 +57,9 @@ def plot_xy(x, y, expand=None, size=.1, color="lightgrey", highlight_color="red"
         ccol=0
 
     fig.tight_layout()
+  
+  if return_ax:
+    return ax
 
 def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
   if basis is None:
