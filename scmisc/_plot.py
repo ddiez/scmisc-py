@@ -1,6 +1,19 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def calculate_dims(ngroups, nrows=None, ncols=None):
+  if ncols is None and nrows is None:
+      ncols = np.int32(np.ceil(np.sqrt(ngroups)))
+      nrows = int(np.ceil(ngroups/ncols))
+
+  if ncols is None and nrows is not None:
+    ncols = int(np.ceil(ngroups/nrows))
+
+  if nrows is None and ncols is not None:
+    nrows = int(np.ceil(ngroups/ncols))
+
+  return nrows, ncols
+
 def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   x = data[x]
   y = data[y]
@@ -13,15 +26,7 @@ def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color
     groups = expand.unique()
     ngroups = groups.shape[0]
 
-    if ncols is None and nrows is None:
-      ncols = np.int32(np.ceil(np.sqrt(ngroups)))
-      nrows = int(np.ceil(ngroups/ncols))
-
-    if ncols is None and nrows is not None:
-      ncols = int(np.ceil(ngroups/nrows))
-
-    if nrows is None and ncols is not None:
-      nrows = int(np.ceil(ngroups/ncols))
+    nrows, ncols = calculate_dims(ngroups=ngroups, nrows=nrows, ncols=ncols)
     
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize, squeeze=False)
 
@@ -79,17 +84,9 @@ def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight
     expand = x.obs[expand].sort_values()
     groups = expand.unique()
     ngroups = groups.shape[0]
-    
-    if ncols is None and nrows is None:
-      ncols = np.int32(np.ceil(np.sqrt(ngroups)))
-      nrows = int(np.ceil(ngroups/ncols))
 
-    if ncols is None and nrows is not None:
-      ncols = int(np.ceil(ngroups/nrows))
+    nrows, ncols = calculate_dims(ngroups=ngroups, nrows=nrows, ncols=ncols)
 
-    if nrows is None and ncols is not None:
-      nrows = int(np.ceil(ngroups/ncols))
-    
     fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize, squeeze=False)
     
     for i in range(nrows):
