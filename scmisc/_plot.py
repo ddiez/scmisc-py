@@ -58,6 +58,8 @@ def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color
         crow+=1
         ccol=0
 
+    fig.supxlabel(x)
+    fig.supylabel(y)
     fig.tight_layout()
   
   if return_ax:
@@ -189,3 +191,12 @@ def plot_volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
       ccol=0
   
   fig.tight_layout()
+
+def plot_model_fit(model, train="train_loss_epoch", validation="validation_loss"):
+  plt.plot(model.history["train_loss_epoch"], label="train")
+  plt.plot(model.history["validation_loss"], label="validation")
+  plt.title("Loss over training epochs")
+  plt.xlabel("Epoch")
+  plt.ylabel("Loss")
+  plt.legend()
+  plt.show()
