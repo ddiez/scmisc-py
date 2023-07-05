@@ -15,12 +15,12 @@ def calculate_dims(ngroups, nrows=None, ncols=None):
   return nrows, ncols
 
 def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
-  x = data[x]
-  y = data[y]
+  X = data[x]
+  Y = data[y]
 
   if expand is None:
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, squeeze=True)
-    ax.scatter(x, y, s=size, c=color, *args, **kwargs)
+    ax.scatter(X, Y, s=size, c=color, *args, **kwargs)
   else:
     expand = data[expand]
     groups = expand.unique()
@@ -41,18 +41,15 @@ def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color
     for k in range(ngroups):
       group = groups[k]
       index = expand[expand == group].index
-      #cells = x.obs_names.isin(index)
       cells = index
       
-      ax[crow, ccol].scatter(x, y, s=size, c=color, marker="o")
-      ax[crow, ccol].scatter(x[cells], y[cells], s=size, c=highlight_color, marker="o")
+      ax[crow, ccol].scatter(X, Y, s=size, c=color, marker="o")
+      ax[crow, ccol].scatter(X[cells], Y[cells], s=size, c=highlight_color, marker="o")
       ax[crow, ccol].set_title(str(groups[k]))
+
       if axis:
         ax[crow, ccol].set_axis_on()
-      #ax[crow, ccol].set_xticks([])
-      #ax[crow, ccol].set_yticks([])
-      #ax[crow, ccol].set_xlabel(keys[0])
-      #ax[crow, ccol].set_ylabel(keys[1])
+
       if grid:
         ax[crow, ccol].grid(True)
       
