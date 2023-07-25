@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 
 def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
   from adjustText import adjust_text
