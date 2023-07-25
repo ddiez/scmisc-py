@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
+def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
   from adjustText import adjust_text
   #import textalloc as ta
 

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_pca_variance_cumper(x):
+def pca_variance_cumper(x):
   import numpy as np
   import matplotlib.pyplot as plt
 

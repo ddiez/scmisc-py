@@ -14,7 +14,7 @@ def calculate_dims(ngroups, nrows=None, ncols=None):
 
   return nrows, ncols
 
-def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
+def xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   X = data[x]
   Y = data[y]
 
@@ -65,7 +65,7 @@ def plot_xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color
   if return_ax:
     return ax
 
-def plot_coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
+def coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
   if basis is None:
     basis = x.obsm_keys()[0]
   else:
