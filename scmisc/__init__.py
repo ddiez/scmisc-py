@@ -6,8 +6,7 @@ Miscellaneous tools for the analysis of single cell genomics data in python. A n
 """
 
 from ._version import __version__
-from . import plot as pl
-#from .plot._plot import *
+from . import plotting as pl
 from ._data import *
 from ._doublet import *
 from ._utils import *
