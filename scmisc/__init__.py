@@ -10,8 +10,8 @@ from importlib.metadata import version, PackageNotFoundError
 try:
     __version__ = version("scmisc")
 except PackageNotFoundError:
-    # package is not installed
-    pass
+  # package is not installed
+  pass
 
 from . import plotting as pl
 from ._data import *
