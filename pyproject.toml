@@ -36,7 +36,7 @@ dependencies = [
 "Bug Tracker" = "https://github.com/ddiez/scmisc-py/issues"
 
 [tool.setuptools]
-packages = ["scmisc"]
+packages = ["scmisc", "scmisc.plotting"]
 
 [tool.pytest.ini_options]
 testpaths = [
