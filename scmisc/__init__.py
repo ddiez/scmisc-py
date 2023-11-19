@@ -16,4 +16,5 @@ except PackageNotFoundError:
 from . import plotting as pl
 from ._data import *
 from ._doublet import *
+from ._tools import *
 from ._utils import *
