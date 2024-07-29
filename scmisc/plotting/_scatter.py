@@ -1,18 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
-
-def calculate_dims(ngroups, nrows=None, ncols=None):
-  if ncols is None and nrows is None:
-      ncols = np.int32(np.ceil(np.sqrt(ngroups)))
-      nrows = int(np.ceil(ngroups/ncols))
-
-  if ncols is None and nrows is not None:
-    ncols = int(np.ceil(ngroups/nrows))
-
-  if nrows is None and ncols is not None:
-    nrows = int(np.ceil(ngroups/ncols))
-
-  return nrows, ncols
+from .._tools import calculate_dims
 
 def xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   X = data[x]

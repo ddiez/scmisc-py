@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from .._tools import calculate_dims
 
 def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
   from adjustText import adjust_text
