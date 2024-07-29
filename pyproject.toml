@@ -28,7 +28,8 @@ dependencies = [
   "numpy",
   "anndata",
   "scanpy",
-  "pandas"
+  "pandas",
+  "pyarrow"
 ]
 
 [project.urls]
