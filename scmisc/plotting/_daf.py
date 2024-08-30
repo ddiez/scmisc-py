@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from .._tools import calculate_dims
 
-def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
+def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None, lfc_col="lfc_mean", prob_col="proba_de"):
   from adjustText import adjust_text
   #import textalloc as ta
 
@@ -23,11 +23,11 @@ def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
   for k in range(ngroups):
     group = groups[k]
     tmp = x[x[groupby] == group]
-    tmp_up = tmp[tmp.lfc_mean > lfc]
-    tmp_down = tmp[tmp.lfc_mean < -lfc]
-    tmp_up = tmp_up.sort_values("proba_de", ascending=False).head(N)
-    tmp_down = tmp_down.sort_values("proba_de", ascending=False).head(N)
-    ax[crow, ccol].scatter(tmp.lfc_mean, tmp.proba_de, s=1, c="black", marker=".")
+    tmp_up = tmp[tmp[lfc_col] > lfc]
+    tmp_down = tmp[tmp[lfc_col] < -lfc]
+    tmp_up = tmp_up.sort_values(prob_col, ascending=False).head(N)
+    tmp_down = tmp_down.sort_values(prob_col, ascending=False).head(N)
+    ax[crow, ccol].scatter(tmp[lfc_col], tmp[prob_col], s=1, c="black", marker=".")
     ax[crow, ccol].axvline(x=0, color="lightgray", linewidth=.5, linestyle="-")
     ax[crow, ccol].axvline(x=-1, color="black", linewidth=.5, linestyle="--")
     ax[crow, ccol].axvline(x=1, color="black", linewidth=.5, linestyle="--")
@@ -37,14 +37,14 @@ def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None):
     ax[crow, ccol].set_yticks([])
     ax[crow, ccol].set_xlabel("log10 FC")
     ax[crow, ccol].set_ylabel("Probability DE")
-    ax[crow, ccol].scatter(tmp_up.lfc_mean, tmp_up.proba_de, s=1, c="red")
-    ax[crow, ccol].scatter(tmp_down.lfc_mean, tmp_down.proba_de, s=1, c="blue")
+    ax[crow, ccol].scatter(tmp_up[lfc_col], tmp_up[prob_col], s=1, c="red")
+    ax[crow, ccol].scatter(tmp_down[lfc_col], tmp_down[prob_col], s=1, c="blue")
     text = []
     for i, d in tmp_up.iterrows():
-      text.append(ax[crow, ccol].text(d.lfc_mean, d.proba_de, s=i, c="red", size=8))
+      text.append(ax[crow, ccol].text(d[lfc_col], d[prob_col], s=i, c="red", size=8))
 
     for i, d in tmp_down.iterrows():
-      text.append(ax[crow, ccol].text(d.lfc_mean, d.proba_de, s=i, c="blue", size=8))
+      text.append(ax[crow, ccol].text(d[lfc_col], d[prob_col], s=i, c="blue", size=8))
 
     adjust_text(text, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), ax=ax[crow, ccol], precision=1, text_from_points=False)
 
