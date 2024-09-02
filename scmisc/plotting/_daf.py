@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from .._tools import calculate_dims
 
-def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None, lfc_col="lfc_mean", prob_col="proba_de"):
+def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None, lfc_col="lfc_mean", prob_col="proba_de", xlab="log2FC", ylab="-log10(p-value)"):
   from adjustText import adjust_text
   #import textalloc as ta
 
@@ -35,8 +35,8 @@ def volcano(x, groupby, N=10, lfc=1, nrows=None, ncols=None, figsize=None, lfc_c
     ax[crow, ccol].set_axis_on()
     ax[crow, ccol].set_xticks([])
     ax[crow, ccol].set_yticks([])
-    ax[crow, ccol].set_xlabel("log10 FC")
-    ax[crow, ccol].set_ylabel("Probability DE")
+    ax[crow, ccol].set_xlabel(xlab)
+    ax[crow, ccol].set_ylabel(ylab)
     ax[crow, ccol].scatter(tmp_up[lfc_col], tmp_up[prob_col], s=1, c="red")
     ax[crow, ccol].scatter(tmp_down[lfc_col], tmp_down[prob_col], s=1, c="blue")
     text = []
