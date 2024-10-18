@@ -49,6 +49,13 @@ def subcluster_group_scvi(adata, source_key, group, target_key, layer="counts", 
     
   adata.obs.loc[cells, target_key] = adata.obs.loc[cells, target_key] + "_" + tmp.obs[target_key_tmp].to_list()
 
+def filter_cells_by_genes(adata, genes, cutoff=0, layer="counts"):
+  for gene in genes:
+    if gene in adata.var_names:
+      sel = adata[:, adata.var_names == gene].layers[layer].toarray() > cutoff
+      adata = adata[~sel, :]
+  return adata
+
 def calculate_dims(ngroups, nrows=None, ncols=None):
   import numpy as np
 
