@@ -13,6 +13,7 @@ except PackageNotFoundError:
   # package is not installed
   pass
 
+from . import atac
 from . import plotting as pl
 from ._data import *
 from ._doublet import *

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scmisc"
-version = "0.0.3"
+version = "0.0.4"
 
 authors = [
   { name="Diego Diez", email="diego10ruiz@gmail.com" },
@@ -36,7 +36,7 @@ dependencies = [
 "Bug Tracker" = "https://github.com/ddiez/scmisc-py/issues"
 
 [tool.setuptools]
-packages = ["scmisc", "scmisc.plotting"]
+packages = ["scmisc", "scmisc.plotting", "scmisc.atac"]
 
 [tool.pytest.ini_options]
 testpaths = [
