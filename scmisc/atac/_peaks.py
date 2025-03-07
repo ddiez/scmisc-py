@@ -63,14 +63,22 @@ def get_query(tb, range):
 
 def get_interval_barcodes(tb, range, whitelist=None):
   import pandas as pd
+  import numpy as np
+  from collections import Counter
 
   out = get_query(tb, range)
 
-  barcode = [ [i[3], int(i[4])] for i in out ]
-  barcode = pd.DataFrame(barcode, columns=["barcode", "count"])
+  barcode = [ i[3] for i in out ]
 
   if whitelist is not None:
-    barcode = barcode[barcode.barcode.isin(whitelist)]
+    barcode = np.array(barcode)
+    barcode = barcode[np.isin(barcode, whitelist)]
+
+  barcode = Counter(barcode)
+  barcode = pd.DataFrame({
+    "barcode": list(barcode.keys()),
+    "count": list(barcode.values())
+  })
   
   barcode.insert(0, "peak", range)
 
@@ -90,9 +98,7 @@ def count_intervals(tb, ranges, whitelist=None):
   return res
 
 def feature_matrix(tb, ranges, whitelist=None):
-  import pandas as pd
-  from scipy.sparse import hstack
-
   res = count_intervals(tb, ranges, whitelist=whitelist)
+  res = res.value_counts(["barcode", "peak"]).reset_index()
   res = as_sparse(res, "barcode", "peak", "count")
   return res
