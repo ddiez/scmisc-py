@@ -99,6 +99,5 @@ def count_intervals(tb, ranges, whitelist=None):
 
 def feature_matrix(tb, ranges, whitelist=None):
   res = count_intervals(tb, ranges, whitelist=whitelist)
-  res = res.value_counts(["barcode", "peak"]).reset_index()
   res = as_sparse(res, "barcode", "peak", "count")
   return res
