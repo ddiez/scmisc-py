@@ -10,8 +10,10 @@ def pca_variance_cumper(x):
   var = 100 * var / np.sum(var)
   var = np.cumsum(var)
 
-  plt.scatter(x=range(var.shape[0]), y=var, c="black", s=1)
-  plt.axhline(y=80, c="red", linewidth=1)
-  plt.xlabel("Component")
-  plt.ylabel("Cumulative percentage variance")
+  fig, ax = plt.subplots()
+  ax.scatter(x=range(var.shape[0]), y=var, c="black", s=1)
+  ax.axhline(y=80, c="red", linewidth=1)
+  ax.set_xlabel("Component")
+  ax.set_ylabel("Cumulative percentage variance")
+  ax.xaxis.grid(True, color="gray", linestyle="--", linewidth=0.5)
 
