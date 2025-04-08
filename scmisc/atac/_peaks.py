@@ -1,6 +1,6 @@
 def as_sparse(df, row_column, col_column, val_column):
   import pandas as pd
-  from scipy.sparse import csr_matrix
+  from scipy.sparse import csr_array
 
   if isinstance(row_column, int):
     row_column = df.iloc[:, row_column]
@@ -24,7 +24,7 @@ def as_sparse(df, row_column, col_column, val_column):
   # Convert the DataFrame to a sparse matrix
   values = val_column.values
   
-  X = csr_matrix((values, (row_indices, col_indices)))
+  X = csr_array((values, (row_indices, col_indices)))
 
   return {
     "X": X,
