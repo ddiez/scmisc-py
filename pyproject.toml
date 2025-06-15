@@ -1,10 +1,11 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "scmisc"
-version = "0.0.4"
+#version = "0.0.4"
+dynamic = ["version"]
 
 authors = [
   { name="Diego Diez", email="diego10ruiz@gmail.com" },
@@ -36,7 +37,10 @@ dependencies = [
 "Bug Tracker" = "https://github.com/ddiez/scmisc-py/issues"
 
 [tool.setuptools]
-packages = ["scmisc", "scmisc.plotting", "scmisc.atac"]
+packages = ["scmisc", "scmisc.plotting", "scmisc.atac", "scmisc.sparse"]
+
+[tool.setuptools_scm]
+#version_file = "scmisc/_version.py"
 
 [tool.pytest.ini_options]
 testpaths = [
