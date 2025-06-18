@@ -37,7 +37,7 @@ dependencies = [
 "Bug Tracker" = "https://github.com/ddiez/scmisc-py/issues"
 
 [tool.setuptools]
-packages = ["scmisc", "scmisc.plotting", "scmisc.atac", "scmisc.sparse"]
+packages = ["scmisc", "scmisc.plotting", "scmisc.atac"]
 
 [tool.setuptools_scm]
 #version_file = "scmisc/_version.py"
