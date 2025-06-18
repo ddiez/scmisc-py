@@ -1,11 +1,15 @@
-import matplotlib.pyplot as plt
-import numpy as np
+def model_fit(model, train="train_loss_epoch", validation="validation_loss", ax=None, figsize=(4, 4)):
+  import matplotlib.pyplot as plt
 
-def model_fit(model, train="train_loss_epoch", validation="validation_loss"):
-  plt.plot(model.history["train_loss_epoch"], label="train")
-  plt.plot(model.history["validation_loss"], label="validation")
-  plt.title("Loss over training epochs")
-  plt.xlabel("Epoch")
-  plt.ylabel("Loss")
-  plt.legend()
-  plt.show()
+  if ax is None:
+    fig, ax = plt.subplots(figsize=figsize)
+  
+  ax.plot(model.history["train_loss_epoch"], label="train")
+  ax.plot(model.history["validation_loss"], label="validation")
+  ax.set_title("Loss over training epochs")
+  ax.set_xlabel("Epoch")
+  ax.set_ylabel("Loss")
+  ax.legend()
+  
+  if ax is None:
+    fig.show()
