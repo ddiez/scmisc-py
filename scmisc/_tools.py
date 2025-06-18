@@ -61,12 +61,12 @@ def calculate_dims(ngroups, nrows=None, ncols=None):
 
   if ncols is None and nrows is None:
       ncols = np.int32(np.ceil(np.sqrt(ngroups)))
-      nrows = int(np.ceil(ngroups/ncols))
+      nrows = np.int32(np.ceil(ngroups/ncols))
 
   if ncols is None and nrows is not None:
-    ncols = int(np.ceil(ngroups/nrows))
+    ncols = np.int32(np.ceil(ngroups/nrows))
 
   if nrows is None and ncols is not None:
-    nrows = int(np.ceil(ngroups/ncols))
+    nrows = np.int32(np.ceil(ngroups/ncols))
 
   return nrows, ncols
