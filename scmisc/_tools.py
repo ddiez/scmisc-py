@@ -70,3 +70,14 @@ def calculate_dims(ngroups, nrows=None, ncols=None):
     nrows = np.int32(np.ceil(ngroups/ncols))
 
   return nrows, ncols
+
+def get_next_ax(row, col, ncols):
+  ''' 
+    # Get the next row and column for a grid of subplots
+  '''
+  col = col + 1
+  if (col > ncols - 1):
+    row+=1
+    col=0
+  
+  return row, col
