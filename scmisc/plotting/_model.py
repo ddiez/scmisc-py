@@ -1,4 +1,4 @@
-def model_fit(model, train="train_loss_epoch", validation="validation_loss", ax=None, figsize=(4, 4)):
+def model_fit(model, train="train_loss_epoch", validation="validation_loss", ax=None, figsize=(4, 4), title=None):
   import matplotlib.pyplot as plt
 
   if ax is None:
@@ -6,7 +6,10 @@ def model_fit(model, train="train_loss_epoch", validation="validation_loss", ax=
   
   ax.plot(model.history["train_loss_epoch"], label="train")
   ax.plot(model.history["validation_loss"], label="validation")
-  ax.set_title("Loss over training epochs")
+  if title is None:
+    ax.set_title("Loss over training epochs")
+  else:
+    ax.set_title(title)
   ax.set_xlabel("Epoch")
   ax.set_ylabel("Loss")
   ax.legend()
