@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from .._tools import calculate_dims
 
-def xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
+def xy(data, x, y, expand=None, size=1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   X = data[x]
   Y = data[y]
 
@@ -30,8 +30,8 @@ def xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red
       index = expand[expand == group].index
       cells = index
       
-      ax[crow, ccol].scatter(X, Y, s=size, c=color, marker="o")
-      ax[crow, ccol].scatter(X[cells], Y[cells], s=size, c=highlight_color, marker="o")
+      ax[crow, ccol].scatter(X, Y, s=size, c=color, marker=".", linewidth=0)
+      ax[crow, ccol].scatter(X[cells], Y[cells], s=size, c=highlight_color, marker=".", linewidth=0)
       ax[crow, ccol].set_title(str(groups[k]))
 
       if axis:
@@ -52,7 +52,7 @@ def xy(data, x, y, expand=None, size=.1, color="lightgrey", highlight_color="red
   if return_ax:
     return ax
 
-def coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
+def coord(x, expand=None, basis=None, size=1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
   if basis is None:
     basis = x.obsm_keys()[0]
   else:
@@ -88,8 +88,8 @@ def coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_colo
       index = expand[expand == group].index
       cells = x.obs_names.isin(index)
       
-      ax[crow, ccol].scatter(coord[:,0], coord[:,1], s=size, c=color, marker="o")
-      ax[crow, ccol].scatter(coord[cells, 0], coord[cells, 1], s=size, c=highlight_color, marker="o")
+      ax[crow, ccol].scatter(coord[:,0], coord[:,1], s=size, c=color, marker=".", linewidth=0)
+      ax[crow, ccol].scatter(coord[cells, 0], coord[cells, 1], s=size, c=highlight_color, marker=".", linewidth=0)
       ax[crow, ccol].set_title(str(groups[k]))
       ax[crow, ccol].set_axis_on()
       ax[crow, ccol].set_xticks([])
@@ -104,6 +104,6 @@ def coord(x, expand=None, basis=None, size=.1, color="lightgrey", highlight_colo
 
     fig.tight_layout()
   else:
-    plt.scatter(coord[:, 0], coord[:, 1], s=size, c=color, marker="o")
+    plt.scatter(coord[:, 0], coord[:, 1], s=size, c=color, marker=".", linewidth=0)
 
   plt.show()
