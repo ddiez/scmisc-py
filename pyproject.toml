@@ -35,8 +35,10 @@ dependencies = [
 "Homepage" = "https://github.com/ddiez/scmisc-py"
 "Bug Tracker" = "https://github.com/ddiez/scmisc-py/issues"
 
-[tool.setuptools]
-packages = ["src/*"]
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["*"]
+namespaces = false
 
 [tool.setuptools_scm]
 #version_file = "scmisc/_version.py"
