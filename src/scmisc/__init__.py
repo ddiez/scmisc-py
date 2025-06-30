@@ -14,6 +14,7 @@ except PackageNotFoundError:
   pass
 
 from . import atac
+from . import tools
 from . import plotting as pl
 from ._data import *
 from ._doublet import *
