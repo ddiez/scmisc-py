@@ -27,6 +27,7 @@ classifiers = [
 dependencies = [
   "numpy",
   "anndata",
+  "mudata",
   "scanpy",
   "pandas",
   "matplotlib",
