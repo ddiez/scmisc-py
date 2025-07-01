@@ -1,4 +1,4 @@
-def pseudobulk(adata, groupby, splitby=None, aggregate="mean"):
+def pseudobulk(adata, groupby, splitby=None, aggregate="mean", metadata=None):
   from anndata import AnnData
   from mudata import MuData
 
@@ -28,9 +28,16 @@ def pseudobulk(adata, groupby, splitby=None, aggregate="mean"):
     a = {}
     for n in d:
       a[n] = AnnData(d[n])
-    res = MuData(a)
     
+    res = MuData(a)
+
   else:
-    res = AnnData(d)
+    res = MuData({
+      "pseudobulk": AnnData(d)
+    })
+
+  if metadata is not None:
+    for n in res.mod_names:
+      res[n].obs = metadata.loc[res[n].obs_names]
   
   return res
