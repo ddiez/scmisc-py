@@ -2,9 +2,17 @@ import matplotlib.pyplot as plt
 from pandas import CategoricalDtype
 from .._tools import calculate_dims
 
-def xy(data, x, y, expand=None, size=1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
+def xy(data, x, y, expand=None, size=1, color_density=False, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   X = data[x]
   Y = data[y]
+
+  if color_density:
+    from sklearn.neighbors import KernelDensity
+    kd = KernelDensity()
+
+    fit = kd.fit(data[[x, y]])
+    data[".density"] = fit.score_samples(data[[x, y]])
+    color = data[".density"]
 
   if expand is None:
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, squeeze=True)
