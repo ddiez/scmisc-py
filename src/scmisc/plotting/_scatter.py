@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from pandas import CategoricalDtype
 from .._tools import calculate_dims
 
 def xy(data, x, y, expand=None, size=1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
@@ -10,7 +11,12 @@ def xy(data, x, y, expand=None, size=1, color="lightgrey", highlight_color="red"
     ax.scatter(X, Y, s=size, c=color, *args, **kwargs)
   else:
     expand = data[expand]
-    groups = expand.unique()
+
+    if isinstance(expand.dtype, CategoricalDtype):
+      groups = expand.cat.categories
+    else:
+      groups = expand.unique()
+    
     ngroups = groups.shape[0]
 
     nrows, ncols = calculate_dims(ngroups=ngroups, nrows=nrows, ncols=ncols)
