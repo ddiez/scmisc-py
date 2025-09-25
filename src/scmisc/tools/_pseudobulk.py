@@ -1,4 +1,4 @@
-def pseudobulk(adata, groupby, splitby=None, aggregate="mean", layer=None, metadata=None):
+def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metadata=None):
   from anndata import AnnData
   from mudata import MuData
 
