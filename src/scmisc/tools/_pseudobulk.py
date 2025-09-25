@@ -1,8 +1,8 @@
-def pseudobulk(adata, groupby, splitby=None, aggregate="mean", metadata=None):
+def pseudobulk(adata, groupby, splitby=None, aggregate="mean", layer=None, metadata=None):
   from anndata import AnnData
   from mudata import MuData
 
-  d = adata.to_df()
+  d = adata.to_df(layer=layer)
   d[groupby] = adata.obs[groupby]
 
   if splitby is not None:
