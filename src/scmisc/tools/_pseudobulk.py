@@ -1,4 +1,4 @@
-def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metadata=None):
+def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metadata=None, return_mudata=True):
   from anndata import AnnData
   from mudata import MuData
 
@@ -17,19 +17,28 @@ def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metada
     case "mean":
       d = d.mean()
   
+  groups = set(adata.obs[groupby].unique())
+  
   if splitby is not None:
     d = {k: v for k, v in d.groupby(splitby, observed=False)}
 
     for n in d:
-      tmp = d[n].reset_index(splitby)
-      tmp = tmp.drop(columns=[splitby])
+      tmp = d[n].reset_index(splitby, drop=True)
+
+      # Find missing groups and fill them with zeros.
+      sel = list(set(groups).difference(tmp.index))
+      for group in sel:
+        tmp.loc[group, :] = 0
+
       d[n] = tmp
     
-    a = {}
-    for n in d:
-      a[n] = AnnData(d[n])
-    
-    res = MuData(a)
+    if return_mudata:
+      a = {}
+      for n in d:
+        a[n] = AnnData(d[n])
+      
+      res = MuData(a)
+    else: res = d
 
   else:
     res = MuData({
