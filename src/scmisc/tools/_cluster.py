@@ -22,11 +22,11 @@ def subcluster_group(adata, reduction_method, source_key, group, target_key, lay
         subclusters = subcluster_group_scvi(tmp, **kargv)
   
   if np.any(adata.obs.columns == target_key):
-     adata.obs[target_key] = subclusters
+    adata.obs[target_key] = subclusters
   if ~np.any(adata.obs.columns == target_key):
-      adata.obs[target_key] =subclusters
+    adata.obs[target_key] = subclusters
     
-  adata.obs.loc[cells, target_key] = adata.obs.loc[cells, target_key] + "_" + tmp.obs[target_key_tmp].to_list()
+  adata.obs.loc[cells, target_key] = adata.obs.loc[cells, target_key] + "_" + tmp.obs[".subcluster"].to_list()
   
 
 def subcluster_group_pca(adata, n_pcs=10, resolution=0.4):
