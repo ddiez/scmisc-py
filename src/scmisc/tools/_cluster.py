@@ -43,14 +43,14 @@ def subcluster_group_harmony(adata, resolution=0.4):
   import warnings
   warnings.warn("Not supported yet")
 
-def subcluster_group_scvi(adata, batch_key=None, categorical_covariate_keys=None, seed=0, resolution=0.4):
+def subcluster_group_scvi(adata, layer=None, batch_key=None, categorical_covariate_keys=None, seed=0, resolution=0.4):
   import scanpy as sc
   import numpy as np
   import scvi
 
   scvi.settings.seed = seed
 
-  scvi.model.SCVI.setup_anndata(adata, batch_key=batch_key, categorical_covariate_keys=categorical_covariate_keys)
+  scvi.model.SCVI.setup_anndata(adata, layer=layer, batch_key=batch_key, categorical_covariate_keys=categorical_covariate_keys)
   model = scvi.model.SCVI(adata)
   model.train(max_epochs=400, early_stopping=True, early_stopping_monitor="validation_loss")
   adata.obsm["X_scvi"] = model.get_latent_representation()
