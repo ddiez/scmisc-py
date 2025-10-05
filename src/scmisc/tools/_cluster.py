@@ -1,6 +1,11 @@
 def subcluster_group(adata, reduction_method, source_key, group, target_key, layer=None, **kargv):
   import numpy as np
 
+  # If the target key exists, convert it to string to allow concatenation later.
+  if np.any(adata.obs.columns == target_key):
+    adata.obs[target_key] = adata.obs[target_key].astype(str)
+
+  # If the target key does not exist, fill it with the source key but convert to strings.
   if ~np.any(adata.obs.columns == target_key):
     adata.obs[target_key] = adata.obs[source_key].astype(str)
 
