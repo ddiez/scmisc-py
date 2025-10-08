@@ -3,9 +3,11 @@ def model_fit(model, train="train_loss_epoch", validation="validation_loss", ax=
 
   if ax is None:
     fig, ax = plt.subplots(figsize=figsize)
+
+  history = model.history
   
-  ax.plot(model.history["train_loss_epoch"], label="train")
-  ax.plot(model.history["validation_loss"], label="validation")
+  ax.plot(history[train], label=train)
+  ax.plot(history[validation], label=validation)
   if title is None:
     ax.set_title("Loss over training epochs")
   else:
