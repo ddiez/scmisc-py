@@ -1,4 +1,4 @@
-def model_fit(model, train="train_loss_epoch", validation="validation_loss", ax=None, figsize=(4, 4), title=None):
+def model_fit(model, train="train_loss", validation="validation_loss", ax=None, figsize=(4, 4), title=None):
   import matplotlib.pyplot as plt
 
   if ax is None:
