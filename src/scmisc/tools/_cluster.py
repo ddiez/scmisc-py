@@ -9,7 +9,10 @@ def subcluster_group(adata, reduction_method, source_key, group, target_key, lay
   if ~np.any(adata.obs.columns == target_key):
     adata.obs[target_key] = adata.obs[source_key].astype(str)
 
-  cells = adata.obs_names[adata.obs[source_key] == group].to_list()
+  if not isinstance(group, list):
+     group = list(group)
+  
+  cells = adata.obs_names[adata.obs[source_key].isin(group)].to_list()
   tmp = adata[cells, :].copy()
 
   if layer is not None:
