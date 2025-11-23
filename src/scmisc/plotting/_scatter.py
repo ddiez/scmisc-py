@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from pandas import CategoricalDtype
 from .._tools import calculate_dims
+from numpy import ndarray
 
 def xy(data, x, y, expand=None, size=1, color_density=False, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   X = data[x]
@@ -66,7 +67,7 @@ def xy(data, x, y, expand=None, size=1, color_density=False, color="lightgrey", 
   if return_ax:
     return ax
 
-def coord(x, expand=None, basis=None, size=1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
+def coord(x, expand=None, groups=None, basis=None, size=1, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None):  
   if basis is None:
     basis = x.obsm_keys()[0]
   else:
@@ -82,8 +83,15 @@ def coord(x, expand=None, basis=None, size=1, color="lightgrey", highlight_color
   
   if expand is not None:
     expand = x.obs[expand].sort_values()
-    groups = expand.unique()
-    ngroups = groups.shape[0]
+
+    if groups is None:
+      groups = expand.unique()
+
+    if isinstance(groups, list):
+      ngroups = len(groups)
+    
+    if isinstance(groups, ndarray):
+      ngroups = groups.shape[0]
 
     nrows, ncols = calculate_dims(ngroups=ngroups, nrows=nrows, ncols=ncols)
 
