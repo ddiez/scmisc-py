@@ -1,6 +1,7 @@
 def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metadata=None, return_mudata=True):
   from anndata import AnnData
   from mudata import MuData
+  import pandas as pd
 
   d = adata.to_df(layer=layer)
   d[groupby] = adata.obs[groupby]
@@ -18,6 +19,8 @@ def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metada
       d = d.mean()
   
   groups = set(adata.obs[groupby].unique())
+
+  obs = pd.DataFrame({"samplename": list(groups)}, index=list(groups))
   
   if splitby is not None:
     d = {k: v for k, v in d.groupby(splitby, observed=False)}
@@ -35,14 +38,14 @@ def pseudobulk(adata, groupby, splitby=None, aggregate="sum", layer=None, metada
     if return_mudata:
       a = {}
       for n in d:
-        a[n] = AnnData(d[n])
+        a[n] = AnnData(d[n].set_index(obs.index), obs=obs, var=adata.var)
       
       res = MuData(a)
     else: res = d
 
   else:
     res = MuData({
-      "pseudobulk": AnnData(d)
+      "pseudobulk": AnnData(d, obs=obs, var=adata.var)
     })
 
   if metadata is not None:
