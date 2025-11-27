@@ -46,12 +46,14 @@ def subcluster_group_harmony(adata, resolution=0.4):
   import warnings
   warnings.warn("Not supported yet")
 
-def subcluster_group_scvi(adata, layer=None, batch_key=None, categorical_covariate_keys=None, seed=0, resolution=0.4):
+def subcluster_group_scvi(adata, layer=None, batch_key=None, categorical_covariate_keys=None, seed=0, float32_matmul_precision="high", resolution=0.4):
   import scanpy as sc
   import numpy as np
   import scvi
+  import torch
 
   scvi.settings.seed = seed
+  torch.set_float32_matmul_precision(float32_matmul_precision)
 
   scvi.model.SCVI.setup_anndata(adata, layer=layer, batch_key=batch_key, categorical_covariate_keys=categorical_covariate_keys)
   model = scvi.model.SCVI(adata)
