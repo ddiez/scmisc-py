@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from pandas import CategoricalDtype
 from .._tools import calculate_dims
-from numpy import ndarray
+from numpy import ndarray, array
 
 def xy(data, x, y, expand=None, size=1, color_density=False, color="lightgrey", highlight_color="red", nrows=None, ncols=None, figsize=None, grid=False, axis=False, return_ax=False, *args, **kwargs):
   X = data[x]
@@ -88,10 +88,9 @@ def coord(x, expand=None, groups=None, basis=None, size=1, color="lightgrey", hi
       groups = expand.unique()
 
     if isinstance(groups, list):
-      ngroups = len(groups)
+      groups = array(groups)
     
-    if isinstance(groups, ndarray):
-      ngroups = groups.shape[0]
+    ngroups = groups.shape[0]
 
     nrows, ncols = calculate_dims(ngroups=ngroups, nrows=nrows, ncols=ncols)
 
