@@ -47,8 +47,8 @@ def subcluster_group_harmony(adata, resolution=0.4):
   warnings.warn("Not supported yet")
 
 def subcluster_group_scvi(adata, layer=None, batch_key=None, categorical_covariate_keys=None, seed=0, float32_matmul_precision="high", resolution=0.4):
-  import scanpy as sc
-  import numpy as np
+  from scanpy.preprocessing import neighbors
+  from scanpy.tools import leiden
   import scvi
   import torch
 
@@ -60,7 +60,7 @@ def subcluster_group_scvi(adata, layer=None, batch_key=None, categorical_covaria
   model.train(max_epochs=400, early_stopping=True, early_stopping_monitor="validation_loss")
   adata.obsm["X_scvi"] = model.get_latent_representation()
 
-  sc.pp.neighbors(adata, use_rep="X_scvi")
-  sc.tl.leiden(adata, key_added=".subcluster", resolution=resolution, flavor="igraph", n_iterations=2, directed=False)
+  neighbors(adata, use_rep="X_scvi")
+  leiden(adata, key_added=".subcluster", resolution=resolution, flavor="igraph", n_iterations=2, directed=False)
 
   return adata.obs[".subcluster"]
